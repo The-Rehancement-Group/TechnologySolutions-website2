@@ -2694,6 +2694,58 @@ a[class*="btn"]{
   }
 }
 
+
+
+/* ── USER UPDATE v18: Solutions video fit + Use Cases intro size
+   Maintains the existing 100% viewport section behavior. */
+@media(min-width:901px){
+  /* Let the capability/video area use the available panel height instead of leaving a large gap above the video. */
+  .capability-detail-panel{
+    justify-content:flex-start !important;
+    gap:clamp(16px,2vh,28px) !important;
+  }
+  .capability-video{
+    flex:1 1 auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+    height:auto !important;
+    margin-top:0 !important;
+  }
+  .capability-video .video-placeholder{
+    min-height:100% !important;
+  }
+}
+
+/* Reduce the Use Cases intro paragraph by about 25%. */
+.usecase-section .section-sub{
+  font-size:19.5px !important;
+  line-height:1.55 !important;
+  max-width:90ch !important;
+}
+@media(max-width:1180px){
+  .usecase-section .section-sub{
+    font-size:clamp(17px,1.65vw,19.5px) !important;
+  }
+}
+@media(max-width:768px){
+  .usecase-section .section-sub{
+    font-size:16px !important;
+    line-height:1.55 !important;
+  }
+}
+
+
+
+/* Final text-size refinements while preserving 100% viewport behavior */
+.sol-header .section-sub{
+  font-size:clamp(15px,1.25vw,20px) !important;
+  line-height:1.55 !important;
+}
+.spotlight-sub{
+  font-size:clamp(15px,1.2vw,20px) !important;
+  line-height:1.55 !important;
+}
+
 </style>
 </head>
 <body>
@@ -2838,7 +2890,7 @@ a[class*="btn"]{
       <div class="sol-header">
         <span class="section-eyebrow">Solutions</span>
         <h2 class="section-title">What We Deliver</h2>
-        <p class="section-sub">We start with your workflow, identify the friction, and architect the right combination of tools — Power Platform, AI, custom software, dashboards, and automation — around the way your organization actually operates.</p>
+        <p class="section-sub">We start with your workflow, identify the friction, and architect the right combination of tools including Power Platform, AI, custom software, dashboards, and automation around the way your organization actually operates.</p>
       </div>
       <div class="sol-grid">
         <div class="sol-card" onclick="selectSolCard(this,'ai')"><div class="sol-card-top"><div class="sol-card-left"><div class="solution-icon icon-ai"><svg viewBox="0 0 64 64" fill="none"><path d="M25.5 12.5C19.7 12.5 15 17.2 15 23c-4.2 1.4-7 5.3-7 9.8 0 4.1 2.4 7.7 5.8 9.3-.2.8-.3 1.6-.3 2.4 0 5 4 9 9 9 3.4 0 6.4-1.9 7.9-4.8V17.4c-1.7-3-3.5-4.9-4.9-4.9Z" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M38.5 12.5C44.3 12.5 49 17.2 49 23c4.2 1.4 7 5.3 7 9.8 0 4.1-2.4 7.7-5.8 9.3.2.8.3 1.6.3 2.4 0 5-4 9-9 9-3.4 0-6.4-1.9-7.9-4.8V17.4c1.7-3 3.5-4.9 4.9-4.9Z" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 27h5.5M22 37h5.5M36.5 27H42M36.5 37H42" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><circle cx="20" cy="27" r="2" fill="currentColor"/><circle cx="20" cy="37" r="2" fill="currentColor"/><circle cx="44" cy="27" r="2" fill="currentColor"/><circle cx="44" cy="37" r="2" fill="currentColor"/><path d="M52 13v5M49.5 15.5h5M10 50v4M8 52h4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div><div class="sol-card-text"><h3>AI Machine Learning</h3><p class="sol-card-desc">Embed intelligence into workflows and decision-making.</p><span class="sol-learn">Learn More <span class="sol-learn-arrow">&rarr;</span></span></div></div><div class="sol-plus">+</div></div></div>
