@@ -2905,7 +2905,7 @@ a[class*="btn"]{
         <div class="video-panel-title" id="cap-title">Select a Solution</div>
         <p class="video-panel-desc" id="cap-desc">Choose a solution area on the left to see how TRG applies that capability, what it helps solve, and where a demo video can be featured.</p>
       </div>
-      <div class="video-wrap capability-video" id="cap-video-wrap"><div class="video-placeholder" id="cap-video-placeholder"><div class="video-play-btn" id="cap-video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="video-placeholder-lbl" id="cap-video-label">Demo video placeholder</div></div><iframe id="cap-video-iframe" style="display:none;width:100%;height:100%;border:none;" src="" title="TRG Technology Solutions Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="video-wrap capability-video"><div class="video-placeholder"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="video-placeholder-lbl" id="cap-video-label">Demo video placeholder</div></div></div>
     </div>
   </div>
 </section>
@@ -3094,12 +3094,11 @@ a[class*="btn"]{
 <script>
 const solData={
   ai:{label:"AI Machine Learning",title:"AI Machine Learning",desc:"Apply AI where it can reduce manual review, accelerate decision cycles, and turn operational data into clear next steps.",video:"AI and machine learning demo placeholder"},
-  lowcode:{label:"Low-Code And No-Code",title:"Low-Code And No-Code",desc:"Build secure apps, approval flows, and mobile-ready tools using platforms such as Microsoft Power Platform and Google AppSheet.",video:"",youtubeId:"x-DjSI0qE0o"},
+  lowcode:{label:"Low-Code And No-Code",title:"Low-Code And No-Code",desc:"See how TRG turns inventory management and field equipment requests into connected low-code solutions using Microsoft Power Platform, Power Automate, SharePoint or Dataverse, Google AppSheet, Apps Script, and Google Sheets.",video:"Low-Code / No-Code Solutions video",embed:"https://www.youtube-nocookie.com/embed/x-DjSI0qE0o?rel=0&modestbranding=1"},
   workflow:{label:"Process Automation",title:"Process Automation",desc:"Map repetitive workflows, remove manual handoffs, and connect approvals, notifications, and audit trails into one streamlined process.",video:"Process automation demo placeholder"},
   data:{label:"Data and Analytics",title:"Data and Analytics",desc:"Connect disconnected data sources and turn them into dashboards, reports, and leadership-ready insights that are easier to act on.",video:"Data and analytics demo placeholder"}
 };
 function selectSolCard(card,key){
-  const was=card.classList.contains("selected");
   document.querySelectorAll(".sol-card").forEach(c=>c.classList.remove("selected"));
   const d=solData[key];
   if(!d)return;
@@ -3107,18 +3106,16 @@ function selectSolCard(card,key){
   document.getElementById("cap-label").textContent="Capability Focus";
   document.getElementById("cap-title").textContent=d.title;
   document.getElementById("cap-desc").textContent=d.desc;
-  const placeholder=document.getElementById("cap-video-placeholder");
-  const iframe=document.getElementById("cap-video-iframe");
-  if(d.youtubeId){
-    if(placeholder)placeholder.style.display="none";
-    if(iframe){iframe.src="https://www.youtube.com/embed/"+d.youtubeId+"?rel=0";iframe.style.display="block";}
-  } else {
-    if(iframe){iframe.style.display="none";iframe.src="";}
-    if(placeholder)placeholder.style.display="";
-    document.getElementById("cap-video-label").textContent=d.video;
-  }
   const panel=document.getElementById("capability-panel");
   if(panel){panel.classList.add("active");}
+
+  const videoWrap=document.querySelector(".capability-video");
+  if(!videoWrap)return;
+  if(d.embed){
+    videoWrap.innerHTML=`<iframe src="${d.embed}" title="${d.title} video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+  }else{
+    videoWrap.innerHTML=`<div class="video-placeholder"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="video-placeholder-lbl" id="cap-video-label">${d.video}</div></div>`;
+  }
 }
 
 const ucData={
@@ -3161,3 +3158,16 @@ if(hamburger&&mobileOverlay){
       hamburger.setAttribute("aria-expanded","false");
     });
   });
+}
+
+// Make subnav feel solid after the hero scrolls out of view.
+const subNav=document.querySelector(".sub-nav");
+function updateSubNav(){
+  if(!subNav)return;
+  subNav.classList.toggle("is-solid",window.scrollY>40);
+}
+window.addEventListener("scroll",updateSubNav,{passive:true});
+updateSubNav();
+</script>
+</body>
+</html>
