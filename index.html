@@ -3985,10 +3985,162 @@ a[class*="btn"]{
   justify-content:flex-start;
 }
 
+/* ── MOBILE REFINEMENT v4 ─────────────────────────────────────────────
+   Keep the current thumbnail/play-button design for now. This pass only
+   fixes mobile sizing and the subnavigation fit. */
+@media(max-width:720px){
+  /* Let the video panel and 16:9 player use nearly the full phone width.
+     Earlier viewport-height caps limited the player to ~340px. */
+  .solutions-section .ts-panel{
+    width:calc(100vw - 20px) !important;
+    max-width:none !important;
+    margin-left:calc((100% - (100vw - 20px))/2) !important;
+    margin-right:0 !important;
+    padding:18px 12px 14px !important;
+  }
+  .solutions-section .ts-player{
+    width:100% !important;
+    max-width:none !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+  }
+
+  /* Keep all three section links plus the CTA on one row without clipping. */
+  .sub-nav{
+    grid-template-columns:minmax(0,1fr) auto !important;
+    padding-left:8px !important;
+    padding-right:8px !important;
+    column-gap:4px !important;
+  }
+  .sub-nav-links{
+    min-width:0 !important;
+    gap:0 !important;
+    justify-self:stretch !important;
+  }
+  .sub-nav-links a{
+    font-size:clamp(10.5px,2.85vw,12px) !important;
+    padding:5px clamp(4px,1.15vw,7px) !important;
+  }
+  .sub-nav-cta{
+    font-size:clamp(10.5px,2.8vw,12px) !important;
+    padding:8px clamp(9px,2.2vw,13px) !important;
+    white-space:nowrap !important;
+    min-width:0 !important;
+    max-width:none !important;
+  }
+}
+
+
+/* ── MOBILE / THUMBNAIL POLISH v5 ─────────────────────────────────────
+   Final refinements: fix the phone sub-nav fit, keep the active section
+   underline in sync, enlarge the mobile workflow diagram, and replace the
+   red video button treatment with a cyan glow that better matches TRG. */
+.ts-player{
+  background:
+    radial-gradient(circle at 50% 38%, rgba(0,172,193,.16) 0%, rgba(0,172,193,0) 34%),
+    radial-gradient(circle at 50% -12%, rgba(255,255,255,.13) 0%, rgba(255,255,255,0) 54%),
+    linear-gradient(180deg,#14335a 0%,#0B1F3A 56%,#071428 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 16px 36px rgba(7,20,40,.18);
+}
+.ts-player::before{
+  content:"";position:absolute;inset:12px;border-radius:12px;
+  border:1px solid rgba(0,172,193,.22);pointer-events:none;
+}
+.ts-player::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:44%;
+  background:linear-gradient(180deg,rgba(7,20,40,0) 0%,rgba(7,20,40,.56) 100%);
+  pointer-events:none;
+}
+.ts-player-grid{opacity:.22;background-size:32px 32px}
+.ts-player-mark{opacity:.12;right:-18px;bottom:-28px}
+.ts-player-inner{gap:12px;padding:18px 18px 20px}
+.ts-play-btn{
+  width:68px;height:68px;border-radius:999px;
+  background:radial-gradient(circle at 35% 32%, #69efff 0%, #1ed8f5 36%, #00b4cb 72%, #009aac 100%);
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow:0 0 0 8px rgba(0,172,193,.11),0 0 22px rgba(0,172,193,.42),0 16px 34px rgba(0,76,105,.42);
+}
+.ts-play-btn svg{filter:drop-shadow(0 1px 1px rgba(0,0,0,.18))}
+.ts-player:hover .ts-play-btn{transform:scale(1.06)}
+.ts-player-cap{
+  padding:10px 14px;border-radius:12px;
+  background:rgba(7,20,40,.38);border:1px solid rgba(255,255,255,.11);
+  backdrop-filter:blur(4px);
+}
+.ts-player-cap .ts-lead{font-size:11.5px;font-weight:700;letter-spacing:.09em}
+.ts-player-chip{
+  background:rgba(0,172,193,.12);
+  border-color:rgba(0,172,193,.28);
+  color:#d8fbff;
+}
+@media(max-width:720px){
+  .ts-player::before{inset:10px}
+  .ts-player-inner{padding:15px 14px 16px}
+  .ts-play-btn{width:58px;height:58px;box-shadow:0 0 0 7px rgba(0,172,193,.11),0 0 18px rgba(0,172,193,.34),0 14px 26px rgba(0,76,105,.34)}
+  .ts-play-btn svg{width:22px;height:22px}
+  .ts-player-cap{padding:8px 11px}
+}
+@media(max-width:520px){
+  :root{--trg-subnav-h:96px}
+  .sub-nav{
+    height:auto !important;min-height:var(--trg-subnav-h);
+    grid-template-columns:1fr !important;
+    padding:8px 10px 10px !important;
+    row-gap:8px !important;
+    align-content:center;
+  }
+  .sub-nav-links{
+    width:100%;justify-content:space-between !important;gap:4px !important;
+    justify-self:stretch !important;
+  }
+  .sub-nav-links a{
+    flex:1 1 0;text-align:center;
+    font-size:11px !important;padding:6px 4px !important;
+  }
+  .sub-nav-links a.active::after{left:10px;right:10px;bottom:-1px}
+  .sub-nav-cta{
+    width:100%;justify-self:stretch !important;text-align:center;
+    font-size:12px !important;padding:10px 12px !important;
+  }
+}
+@media(max-width:720px){
+  .usecase-section .reveal{width:min(100%,calc(100vw - 18px));margin-inline:auto}
+  .ts-uc-layout{gap:14px !important}
+  .ts-stage{
+    width:calc(100vw - 20px);
+    margin-left:calc(50% - 50vw + 10px);
+    padding:14px 10px 12px !important;
+    border-radius:18px !important;
+  }
+  .ts-stage-head,.ts-stage-shape,.ts-detail{padding-left:4px;padding-right:4px}
+  #tsIsoSvg{
+    width:calc(100% + 32px);
+    margin-left:-16px;
+    max-height:clamp(180px,32vh,280px) !important;
+  }
+  .ts-uc-listhead{margin-bottom:6px}
+  .ts-uc-row{padding-top:10px;padding-bottom:10px}
+}
+@media(max-width:520px){
+  .ts-stage{
+    width:calc(100vw - 16px);
+    margin-left:calc(50% - 50vw + 8px);
+    padding:14px 8px 12px !important;
+  }
+  #tsIsoSvg{
+    width:calc(100% + 36px);
+    margin-left:-18px;
+    max-height:clamp(196px,34vh,300px) !important;
+  }
+}
+@media(max-height:700px) and (max-width:720px){
+  #tsIsoSvg{max-height:160px !important}
+}
+
 </style>
 </head>
 <body>
-<!-- TRG Technology Solutions - build 2026-09-11-h -->
+<!-- TRG Technology Solutions - build 2026-09-11-i -->
 
 <!-- MAIN NAV — actual PNG logo, red pipes, Capabilities -->
 <nav class="main-nav">
@@ -4170,7 +4322,7 @@ a[class*="btn"]{
   <div class="reveal">
     <span class="section-eyebrow">Operation-Led Modernization</span>
     <h2 class="section-title">How We Apply Technology</h2>
-    <p class="section-sub" style="margin-bottom:26px">We start with the operation, not the tool. Follow each workflow to see where TRG applies low-code, automation, AI, data engineering, analytics, or human judgment — and just as importantly, where we do not.</p>
+    <p class="section-sub" style="margin-bottom:26px">We start with the operation, not the tool. Follow each workflow to see where TRG applies low-code, automation, AI, data engineering, analytics, or human judgment and, just as importantly, where we do not.</p>
 
     <div class="ts-uc-layout">
       <div class="ts-stage">
@@ -4318,6 +4470,68 @@ function updateSubNav(){
 }
 window.addEventListener("scroll",updateSubNav,{passive:true});
 updateSubNav();
+
+// Keep the Technology Solutions subnavigation indicator synchronized with
+// whichever major section is currently in view. This also updates
+// immediately on tap/click so the active underline feels responsive.
+const trgSectionLinks=[...document.querySelectorAll('.sub-nav-links a[href^="#"]')];
+const trgSectionItems=trgSectionLinks.map(link=>({
+  link,
+  section:document.querySelector(link.getAttribute('href'))
+})).filter(item=>item.section);
+let trgNavTick=false;
+function trgSetActiveSection(link){
+  trgSectionLinks.forEach(a=>a.classList.toggle('active',a===link));
+}
+function trgMeasureFixedStack(){
+  const root=document.documentElement;
+  const main=document.querySelector('.main-nav');
+  const sub=document.querySelector('.sub-nav');
+  const mainH=main?Math.round(main.getBoundingClientRect().height):0;
+  const subH=sub?Math.round(sub.getBoundingClientRect().height):0;
+  if(mainH) root.style.setProperty('--trg-mainnav-h', mainH+'px');
+  if(subH) root.style.setProperty('--trg-subnav-h', subH+'px');
+  if(mainH||subH) root.style.setProperty('--fixed-nav-height', (mainH+subH)+'px');
+  if(sub&&mainH) sub.style.top=mainH+'px';
+  return mainH+subH;
+}
+function trgSyncActiveSection(){
+  trgNavTick=false;
+  if(!trgSectionItems.length)return;
+  const fixed=trgMeasureFixedStack() || parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--fixed-nav-height')) || 124;
+  const markerTop=fixed+12;
+  const markerMid=fixed+Math.min(window.innerHeight*.30,220);
+  let current=trgSectionItems[0];
+  for(const item of trgSectionItems){
+    const rect=item.section.getBoundingClientRect();
+    if(rect.top<=markerMid && rect.bottom>markerTop){
+      current=item;
+      break;
+    }
+    if(rect.top<=markerTop) current=item;
+  }
+  trgSetActiveSection(current.link);
+}
+function trgQueueActiveSection(){
+  if(trgNavTick)return;
+  trgNavTick=true;
+  requestAnimationFrame(trgSyncActiveSection);
+}
+trgSectionLinks.forEach(link=>link.addEventListener('click',e=>{
+  const target=document.querySelector(link.getAttribute('href'));
+  if(!target)return;
+  e.preventDefault();
+  trgSetActiveSection(link);
+  const fixed=trgMeasureFixedStack() || parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--fixed-nav-height')) || 124;
+  const y=window.scrollY + target.getBoundingClientRect().top - fixed - 8;
+  window.scrollTo({top:Math.max(0,y),behavior:'smooth'});
+  setTimeout(trgSyncActiveSection,420);
+}));
+window.addEventListener('scroll',trgQueueActiveSection,{passive:true});
+window.addEventListener('resize',()=>{ trgMeasureFixedStack(); trgQueueActiveSection(); },{passive:true});
+window.addEventListener('load',()=>{ trgMeasureFixedStack(); trgSyncActiveSection(); });
+trgMeasureFixedStack();
+trgSyncActiveSection();
 
 /* ══════════════════════════════════════════════════════════════════════════
    SOLUTIONS QUADRANT + USE CASES  (2026-09 rebuild)
@@ -5020,7 +5234,7 @@ if(tsUcList&&tsIsoSvg){
   try{
     var logo=document.querySelector('.nav-logo-img');
     var r=logo?logo.getBoundingClientRect():null;
-    console.log('TRG build 2026-09-11-h'
+    console.log('TRG build 2026-09-11-i'
       +' | innerWidth '+window.innerWidth
       +' | nav container '+getComputedStyle(document.documentElement).getPropertyValue('--trg-nav-maxw').trim()
       +' | logo left '+(r?Math.round(r.left):'?')+'px'
