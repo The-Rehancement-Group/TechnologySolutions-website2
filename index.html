@@ -4640,8 +4640,14 @@ a[class*="btn"]{
   .sp-demo-host{width:min(100%, 640px, calc((100vh - 745px) * 1.5));}
 }
 @media(max-width:620px){
-  .sp-demo-host{width:min(100%, calc((100vh - 560px) * 1.5));}
-  .sp-demo-frame{border-radius:16px;}
+  /* On phones the page already scrolls naturally, so do not force the demo
+     into the desktop 3:2 height budget. Give the simulated app enough vertical
+     room to keep controls and labels legible. */
+  .sp-demo-host{width:min(100%,480px);max-width:480px;justify-self:center;}
+  .sp-demo-frame{aspect-ratio:1 / 1.08;border-radius:16px;}
+}
+@media(max-width:480px){
+  .sp-demo-frame{aspect-ratio:1 / 1.12;}
 }
 
 @media(min-width:961px){
@@ -4652,7 +4658,7 @@ a[class*="btn"]{
 </style>
 </head>
 <body>
-<!-- TRG Technology Solutions - FROZEN BASELINE 2026-09-13 -->
+<!-- TRG Technology Solutions - FROZEN SEO BASELINE + MOBILE SMARTPRICE FIX 2026-09-13 -->
 
 <!-- MAIN NAV — actual PNG logo, red pipes, Capabilities -->
 <nav class="main-nav">
@@ -6049,6 +6055,58 @@ if(tsUcList&&tsIsoSvg){
     .chart-card{border-radius:9px;padding:7px}.chart-grid{left:31px;right:12px;top:13px;bottom:27px}.chart{inset:9px 10px 23px 28px;width:calc(100% - 38px);height:calc(100% - 32px)}
     .chart-legend{left:33px;bottom:6px;gap:8px;font-size:5.3px}.dot{width:5px;height:5px}.tooltip{font-size:5.7px;padding:5px 6px;border-radius:6px}
     .phase-dots{bottom:7px}.phase-dots i{width:4px;height:4px}.phase-dots i.on{width:15px}
+  }
+
+  /* Phone presentation: the host iframe becomes taller than the desktop mock.
+     Fill that height instead of preserving a 3:2 app, and reclaim the extra
+     vertical space for readable controls. */
+  @media(max-width:620px){
+    html,body{height:100%;overflow:hidden}
+    body{display:block;padding:4px}
+    .demo-wrap{width:100%;height:100%}
+    .app{width:100%;height:100%;aspect-ratio:auto;border-radius:14px}
+    .topbar{height:58px;padding:0 10px}
+    .viewport{inset:58px 0 0}
+    .brand{gap:7px}.brand-mark{width:36px;height:36px}.brand-name{font-size:15px}
+    .nav{gap:3px}.nav span{padding:5px 6px;font-size:8px}
+    .scene{padding:10px}
+    .search-grid{grid-template-columns:1.08fr .92fr;gap:9px;padding-bottom:36px}
+    .left-stack{grid-template-rows:.82fr 1.18fr;gap:9px}
+    .card{padding:10px 10px;border-radius:10px}
+    .card h2{font-size:11.5px;line-height:1.15}
+    .card .hint{font-size:6.7px;margin-bottom:6px}
+    .download{display:none}
+    .dropzone{height:calc(100% - 32px);min-height:0}
+    .upload-icon{width:32px;height:32px;font-size:18px;margin-bottom:5px}
+    .drop-title{font-size:9px}.drop-sub{font-size:6.8px}
+    .strategy-list{gap:5px}
+    .strategy{min-height:36px;padding:5px 6px;gap:5px}
+    .strategy b{font-size:7.7px;line-height:1.15}
+    .strategy small{font-size:5.8px;line-height:1.15}
+    .vendors{gap:7px;margin-top:7px}
+    .vendor{min-height:36px;padding:5px 6px;font-size:7.8px;line-height:1.1}
+    .vlogo{width:21px;height:21px;font-size:6px}.check{width:13px;height:13px}
+    .start-btn{right:11px;bottom:9px;padding:8px 11px;font-size:8.5px}
+
+    .results,.analytics{padding:10px}
+    .results-headline,.analytics-title{font-size:13px}
+    .results-sub,.analytics-sub{font-size:7px;margin-bottom:7px}
+    .search-summary{grid-template-columns:1fr 1fr;gap:5px;padding:6px 7px;margin-bottom:7px}
+    .sum b{font-size:7.2px}.sum small{font-size:5.4px}
+    .progress-card{gap:6px;padding:6px 7px;margin-bottom:6px}
+    .progress-label{font-size:6.6px}.download-btn{font-size:6.5px;padding:5px 7px}
+    .legend{font-size:6px;gap:8px;margin-bottom:5px}.sw{width:14px;height:8px}
+    .rrow{font-size:6.7px;min-height:27px}.rrow>div{padding:4px 5px}.price{margin:2px 3px;padding:4px!important}
+
+    .metric-row{grid-template-columns:1.2fr .7fr .8fr;gap:5px;margin-bottom:7px}
+    .metric-row .metric:nth-child(4),.metric-row .metric.action{display:none}
+    .metric{padding:6px 7px;min-height:42px}.metric small{font-size:5.7px}.metric b{font-size:7.8px}
+    .chart-card{min-height:0;padding:8px}
+    .chart-grid{left:34px;right:12px;top:14px;bottom:28px}
+    .chart{inset:10px 10px 24px 30px;width:calc(100% - 40px);height:calc(100% - 34px)}
+    .chart-legend{left:35px;bottom:7px;gap:9px;font-size:5.8px}
+    .tooltip{font-size:6.2px;padding:5px 6px}
+    .phase-dots{bottom:7px}
   }
 
   @media(prefers-reduced-motion:reduce){.scene{transition:none}.chart path,.chart circle,.tooltip,.file-pill{transition:none!important;animation:none!important}.cursor{display:none}}
